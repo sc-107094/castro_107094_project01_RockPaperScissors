@@ -1,36 +1,39 @@
 
 
-***Indexes***
-1 = Rock
-2 = Paper
-3 = Scissors
 # of rounds: 3
-Round #1 Player: 1 CPU: 2
-Round #2 Player: 2 CPU: 3
-Round #3 Player: 3 CPU: 3
 
-***Indexes***
-1 = Rock
-2 = Paper
-3 = Scissors
+Round #1
+Player: Rock
+CPU: Rock
+
+Round #2
+Player: Paper
+CPU: Rock
+
+Round #3
+Player: Scissors
+CPU: Paper
+
 # of rounds: 3
-Round #1 Player: 3 CPU: 2
-Round #2 Player: 3 CPU: 3
-Round #3 Player: 1 CPU: 3
 
-***Indexes***
-1 = Rock
-2 = Paper
-3 = Scissors
+Round #1
+Player: Rock
+CPU: Scissors
+
+Round #2
+Player: Scissors
+CPU: Rock
+
+Round #3
+Player: Paper
+CPU: Scissors
+
 # of rounds: 2
-Round #1 Player: 3 CPU: 1
-Round #2 Player: 2 CPU: 1
 
-***Indexes***
-1 = Rock
-2 = Paper
-3 = Scissors
-# of rounds: 3
-Round #1 Player: 2 CPU: 3
-Round #2 Player: 3 CPU: 1
-Round #3 Player: 1 CPU: 3
+Round #1
+Player: Rock
+CPU: Rock
+
+Round #2
+Player: Paper
+CPU: Paper
