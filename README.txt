@@ -3,6 +3,10 @@ SP21
 
 Project 01: Simple Python Game
 
+/////////////////////////////////////////////////////////////
+/// Be sure to run the game with the included .gif icons! ///
+/////////////////////////////////////////////////////////////
+
 	This project recreates the simple game of Rock, Paper, Scissors
 	in Python using the graphics.py library. 
 
