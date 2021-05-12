@@ -10,12 +10,12 @@ def main():
     roundCount = 0
     playerPoints = 0
     cpuPoints = 0
+
+    win = GraphWin("Rock-Paper-Scissors", 600, 600, autoflush = False)
+    win.setCoords(0, 0, 6, 6)
+    win.setBackground("cornflower blue")
     
     for i in range(numOfRounds):
-
-        win = GraphWin("Rock-Paper-Scissors", 600, 600, autoflush = False)
-        win.setCoords(0, 0, 6, 6)
-        win.setBackground("cornflower blue")
 
         drawIntro(win)        
 
@@ -27,24 +27,7 @@ def main():
         playerIndex = getChoice(win)
         cpuIndex = getCPUchoice()
         
-        transcript.writelines(["\n\nRound #", str(i + 1)])
-        
-        if(playerIndex == 1):
-            pTranscript = "Rock"
-        elif(playerIndex == 2):
-            pTranscript = "Paper"
-        else:
-            pTranscript = "Scissors"
-            
-        if(cpuIndex == 1):
-            cpuTranscript = "Rock"
-        elif(cpuIndex == 2):
-            cpuTranscript = "Paper"
-        else:
-            cpuTranscript = "Scissors"
-        
-        transcript.writelines(["\nPlayer: ", pTranscript])
-        transcript.writelines(["\nCPU: ", cpuTranscript])
+        writeRoundTranscript(i, playerIndex, cpuIndex, transcript)
 
         clearSquares(win)
 
@@ -74,8 +57,7 @@ def main():
             exitAlert.draw(win)
             win.getMouse()
             transcript.close()
-
-        win.close()
+            win.close()
     
 
 #********************************************************************************************************************************    
@@ -153,9 +135,11 @@ def scoreDisplay(playerScore, cpuScore, windowName):
     compLabel.setTextColor("red")
     compLabel.draw(windowName)  
     
-    for a in range(20):
+    for a in range(30):
         update(15)
-    
+
+    playerLabel.undraw()
+    compLabel.undraw()
     
     
     
@@ -342,7 +326,30 @@ def drawChoices(playerChoice, CPUchoice, windowName):
     
     playerIcons[playerChoice - 1].draw(windowName)
     cpuIcons[CPUchoice - 1].draw(windowName)
-   
+
+
+
+
+def writeRoundTranscript(currentRound, playerChoiceIndex, compChoiceIndex, transcriptName):
+    transcriptName.writelines(["\n\nRound #", str(currentRound + 1)])
+        
+    if(playerChoiceIndex == 1):
+        pTranscript = "Rock"
+    elif(playerChoiceIndex == 2):
+        pTranscript = "Paper"
+    else:
+        pTranscript = "Scissors"
+            
+    if(compChoiceIndex == 1):
+        cpuTranscript = "Rock"
+    elif(compChoiceIndex == 2):
+        cpuTranscript = "Paper"
+    else:
+        cpuTranscript = "Scissors"
+        
+    transcriptName.writelines(["\nPlayer: ", pTranscript])
+    transcriptName.writelines(["\nCPU: ", cpuTranscript])
+    pass
 
 #*********************************************************************************************************************************    
  
