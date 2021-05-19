@@ -1,35 +1,14 @@
 
-
-# of rounds: 3
+Number of rounds: 3
 
 Round #1
-Player: Scissors
-CPU: Paper
+Player: Rock
+CPU: Scissors
 
 Round #2
 Player: Paper
 CPU: Scissors
 
 Round #3
-Player: Rock
-CPU: Scissors
-
-# of rounds: 1
-
-Round #1
-Player: Rock
-CPU: Paper
-
-# of rounds: 3
-
-Round #1
-Player: Paper
-CPU: Paper
-
-Round #2
 Player: Scissors
 CPU: Scissors
-
-Round #3
-Player: Rock
-CPU: Rock

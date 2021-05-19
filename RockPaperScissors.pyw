@@ -21,12 +21,16 @@ class GameRound:
     def getCPUchoice(self):
         return self.CPUchoice
 
+    def getPlayerScore(self):
+        return self.playerScore
+
+    def getCPUscore(self):
+        return self.cpuScore
+
 
     
-
     def drawIntro(self, windowName):
         icons = ["rockLarge.gif", "paperLarge.gif", "scissorsLarge.gif", "cpuScissors.gif", "cpuPaper.gif", "cpuRock.gif"]
-
 
         for i in range(3):
             choiceSquare = Rectangle(Point(0 + (i * 2), 0), Point(2 + (i * 2), 2))
@@ -43,23 +47,6 @@ class GameRound:
             upperSquare.draw(windowName)   
             cpuIcons.draw(windowName)
 
-
-    def scoreDisplay(self, playerScore, cpuScore, windowName): #
-        playerLabel = Text(Point(0.5, 2.2), 'Player: ' + format(self.playerScore))
-        playerLabel.setSize(20)
-        playerLabel.setTextColor("lime")
-        playerLabel.draw(self.windowName)
-
-        compLabel = Text(Point(5.6, 3.7), 'CPU: ' + format(self.cpuScore))
-        compLabel.setSize(20)
-        compLabel.setTextColor("red")
-        compLabel.draw(self.windowName)  
-
-        for a in range(30):
-            update(15)
-
-        playerLabel.undraw()
-        compLabel.undraw()
 
 
     def setPlayerChoice(self, windowName):
@@ -95,7 +82,21 @@ class GameRound:
                 update(15)    
             alert.undraw()
             self.playerChoice = 3
+
             
+
+    def setCPUchoice(self): 
+        cpuNum = random.randint(1, 30)
+
+        if(cpuNum % 3 == 0):
+            self.CPUchoice = 3
+            
+        elif(cpuNum % 2 == 0):
+            self.CPUchoice = 2
+            
+        else:
+            self.CPUchoice = 1
+
 
 
     def clearSquares(self, windowName):
@@ -140,20 +141,17 @@ class GameRound:
             scissors.undraw()
             scissors2.undraw()
 
-    def setCPUchoice(self): 
-        cpuNum = random.randint(1, 30)
-
-        if(cpuNum % 3 == 0):
-            self.CPUchoice = 3
-            
-        elif(cpuNum % 2 == 0):
-            self.CPUchoice = 2
-            
-        else:
-            self.CPUchoice = 1
-            
 
 
+    def drawChoices(self, windowName):
+        playerIcons = [Image(Point(1, 1), "rockLarge.gif"), Image(Point(3, 1), "paperLarge.gif"), Image(Point(5, 1), "scissorsLarge.gif")]
+
+        cpuIcons = [Image(Point(5, 5), "cpuRock.gif"), Image(Point(3, 5), "cpuPaper.gif"), Image(Point(1, 5), "cpuScissors.gif")]
+
+        playerIcons[self.playerChoice - 1].draw(windowName)
+        cpuIcons[self.CPUchoice - 1].draw(windowName)
+
+            
 
     def chooseWinner(self, windowName):
 
@@ -172,190 +170,153 @@ class GameRound:
             for j in range(20):
                     update(15)
             winner.undraw() 
-            return 2
 
         elif(self.playerChoice == 1 and self.CPUchoice == 2): #cpu(paper) beats player(rock)
             winner.setTextColor("red")
             winner.setText("CPU wins.")
             for j in range(20):
                     update(15)
-            winner.undraw() 
-            return 0
+            winner.undraw()
+            self.cpuScore = self.cpuScore + 1
 
         elif(self.playerChoice == 1 and self.CPUchoice == 3): #player(rock) beats cpu(scissors)
             winner.setTextColor("lime")
             winner.setText("Player wins!")
             for j in range(20):
                     update(15)
-            winner.undraw() 
-            return 1
+            winner.undraw()
+            self.playerScore = self.playerScore + 1
 
         elif(self.playerChoice == 2 and self.CPUchoice == 1): #player(paper) beats cpu(rock)
             winner.setTextColor("lime")
             winner.setText("Player wins!")
             for j in range(20):
                     update(15)
-            winner.undraw() 
-            return 1
+            winner.undraw()
+            self.playerScore = self.playerScore + 1
 
-        elif(self.playerChoice == 2 and self.CPUchoice == 3): #cpu(scissors) beats cpu(paper)
+        elif(self.playerChoice == 2 and self.CPUchoice == 3): #cpu(scissors) beats player(paper)
             winner.setTextColor("red")
             winner.setText("CPU wins.")
             for j in range(20):
                     update(15)
-            winner.undraw()  
-            return 0
+            winner.undraw()
+            self.cpuScore = self.cpuScore + 1
 
         elif(self.playerChoice == 3 and self.CPUchoice == 1): #cpu(rock) beats player(scissors)
             winner.setTextColor("red")
             winner.setText("CPU wins.")
             for j in range(20):
                     update(15)
-            winner.undraw() 
-            return 0
+            winner.undraw()
+            self.cpuScore = self.cpuScore + 1
 
         elif(self.playerChoice == 3 and self.CPUchoice == 2): #player(scissors) beats cpu(paper)
             winner.setTextColor("lime")
             winner.setText("Player wins!")
             for j in range(20):
                     update(15)
-            winner.undraw() 
-            return 1 
+            winner.undraw()
+            self.playerScore = self.playerScore + 1
 
 
 
-    def drawChoices(self, windowName):
-        playerIcons = [Image(Point(1, 1), "rockLarge.gif"), Image(Point(3, 1), "paperLarge.gif"), Image(Point(5, 1), "scissorsLarge.gif")]
+    def scoreDisplay(self, windowName):
+        playerLabel = Text(Point(0.5, 2.2), 'Player: ' + format(self.playerScore))
+        playerLabel.setSize(20)
+        playerLabel.setTextColor("lime")
+        playerLabel.draw(windowName)
 
-        cpuIcons = [Image(Point(5, 5), "cpuRock.gif"), Image(Point(3, 5), "cpuPaper.gif"), Image(Point(1, 5), "cpuScissors.gif")]
+        compLabel = Text(Point(5.6, 3.7), 'CPU: ' + format(self.cpuScore))
+        compLabel.setSize(20)
+        compLabel.setTextColor("red")
+        compLabel.draw(windowName)  
 
-        playerIcons[self.playerChoice - 1].draw(windowName)
-        cpuIcons[self.CPUchoice - 1].draw(windowName)
+        for a in range(30):
+            update(15)
 
+        playerLabel.undraw()
+        compLabel.undraw()
 
-
-
-
-
-
-
-
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-#************************************************************************************************************************************************************************
-
-
+#**********************************************************************************************************************************************************************************************
+#**********************************************************************************************************************************************************************************************
+#**********************************************************************************************************************************************************************************************
 
 def main():
     
     numOfRounds = getRounds()
     
-##    transcript = open("gameTranscript.txt", "a")
-##    transcript.writelines(["\n\n# of rounds: ", str(numOfRounds)])
-    
-##    roundCount = 0
-##    playerPoints = 0
-##    cpuPoints = 0
+    transcript = open("gameTranscript.txt", "a")
+    transcript.writelines(["\nNumber of rounds: ", str(numOfRounds)])
 
     win = GraphWin("Rock-Paper-Scissors", 600, 600, autoflush = False)
     win.setCoords(0, 0, 6, 6)
     win.setBackground("cornflower blue")
 
     RPSround = GameRound(win)
+    roundCount = 0
 
-    RPSround.drawIntro(win)
+    for i in range(numOfRounds):
 
-    RPSround.setPlayerChoice(win)
+        RPSround.drawIntro(win)
 
-    RPSround.clearSquares(win)
+        RPSround.setPlayerChoice(win)
 
-    RPSround.setCPUchoice()
+        RPSround.clearSquares(win)
 
-    RPSround.cycleAnimation(win)
+        RPSround.setCPUchoice()
 
-    Pindex = RPSround.getPlayerChoice()
-    print("Player:", Pindex)
+        RPSround.cycleAnimation(win)
 
-    Cindex = RPSround.getCPUchoice()
-    print("CPU:", Cindex)
+        #******************************************************
 
-    RPSround.drawChoices(win)
+        Pindex = RPSround.getPlayerChoice()
 
-    win.getMouse()
-
-    win.close()
-    
-##    for i in range(numOfRounds):
-##
-##        drawIntro(win)        
+        Cindex = RPSround.getCPUchoice()
 
         #*** Indexes ***
         # 1 = Rock
         # 2 = Paper
         # 3 = Scissors
-        
-##        playerIndex = getChoice(win)
-##        cpuIndex = getCPUchoice()
-##
-##        transcript.writelines(["\n\nRound #", str(i + 1)])
-##        
-##        if(playerIndex == 1):
-##            pTranscript = "Rock"
-##        elif(playerIndex == 2):
-##            pTranscript = "Paper"
-##        else:
-##            pTranscript = "Scissors"
-##            
-##        if(cpuIndex == 1):
-##            cpuTranscript = "Rock"
-##        elif(cpuIndex == 2):
-##            cpuTranscript = "Paper"
-##        else:
-##            cpuTranscript = "Scissors"
-##        
-##        transcript.writelines(["\nPlayer: ", pTranscript])
-##        transcript.writelines(["\nCPU: ", cpuTranscript])
-##
-##        clearSquares(win)
-##
-##        cycleAnimation(win)
-##
-##        drawChoices(playerIndex, cpuIndex, win)
-##
-##        roundWinner = chooseWinner(playerIndex, cpuIndex, win)
-##        
-##        if(roundWinner == 2):
-##            pass
-##        elif(roundWinner == 1):
-##            playerPoints = playerPoints + 1
-##        else:
-##            cpuPoints = cpuPoints + 1
-##            
-##        scoreDisplay(playerPoints, cpuPoints, win)
-##            
-##        roundCount = roundCount + 1
-##        
-##        if(roundCount == numOfRounds):
-##            for k in range(10):
-##                update(15)
-##            exitAlert = Text(Point(3, 3), "Click again to exit!")
-##            exitAlert.setTextColor("white")
-##            exitAlert.setSize(24)
-##            exitAlert.draw(win)
-##            win.getMouse()
-##            transcript.close()
-##            win.close()
-    
 
-#********************************************************************************************************************************    
-#**************************************************** Functions ***************************************************************** 
-#********************************************************************************************************************************
+        transcript.writelines(["\n\nRound #", str(i + 1)])
+
+        if(Pindex == 1):
+            transcript.writelines("\nPlayer: Rock")
+        elif(Pindex == 2):
+            transcript.writelines("\nPlayer: Paper")
+        else:
+            transcript.writelines("\nPlayer: Scissors")
+            
+        if(Cindex == 1):
+            transcript.writelines("\nCPU: Rock")
+        elif(Cindex == 2):
+            transcript.writelines("\nCPU: Paper")
+        else:
+            transcript.writelines("\nCPU: Scissors")
+
+        #*****************************************************
+
+        RPSround.drawChoices(win)
+
+        RPSround.chooseWinner(win)
+
+        RPSround.scoreDisplay(win)
+
+        roundCount = roundCount + 1
+
+    if(roundCount == numOfRounds):
+        for k in range(10):
+            update(15)
+        exitAlert = Text(Point(3, 3), "Click again to exit!")
+        exitAlert.setTextColor("white")
+        exitAlert.setSize(24)
+        exitAlert.draw(win)
+        win.getMouse()
+        transcript.close()
+        win.close()       
+    
+#********************************************************************************************************************************************************************************************
 
 def getRounds():
     initWindow = GraphWin("RockPaperScissors", 200, 200, autoflush = False)
@@ -389,6 +350,6 @@ def getRounds():
     initWindow.close()
     return rounds
 
-#*********************************************************************************************************************************    
+#********************************************************************************************************************************************************************************************
  
 main()
